@@ -1,13 +1,15 @@
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
-// Configuración de la conexión a tu PostgreSQL local
+// Permite conectar por URL de producción o por credenciales locales de desarrollo
 const pool = new Pool({
-  host: 'localhost',
-  user: 'postgres',
-  password: '1234',
-  database: 'marketplace',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'postgres',
+  password: process.env.DB_PASSWORD || '1234',
+  database: process.env.DB_NAME || 'marketplace',
+  port: process.env.DB_PORT || 5432,
   allowExitOnIdle: true
 });
 

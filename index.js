@@ -78,8 +78,11 @@ app.post('/posts', verificarToken, async (req, res) => {
   }
 });
 
+// Definir el puerto que asignará la nube (process.env.PORT) o el 3000 para local
+const PORT = process.env.PORT || 3000;
+
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(3000, () => console.log("Servidor escuchando en http://localhost:3000"));
+  app.listen(PORT, () => console.log(`Servidor escuchando en el puerto ${PORT}`));
 }
 
 module.exports = app;
